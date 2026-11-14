@@ -2,8 +2,11 @@
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 import Image from "next/image";
+import { connection } from "next/server";
 
 async function getAllProjects() {
+  await connection();
+
   return prisma.project.findMany({
     orderBy: { createdAt: "desc" }
   });

@@ -1,9 +1,12 @@
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 import Image from "next/image";
+import { connection } from "next/server";
 import type { Project } from "@prisma/client";
 
 async function getFeaturedProjects() {
+  await connection();
+
   return prisma.project.findMany({
     where: { featured: true },
     orderBy: { createdAt: "desc" },
